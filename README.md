@@ -1,7 +1,7 @@
-# PROJET_TUT
+# PROJET_TUT : APPLICATION WEB
 
 ## DESCRIPTION
-  Répertoire principal contenant les programmes **FONCTIONNELS ET TESTES**
+  Répertoire de developpement pour **PARTAGER LES CODES DE L'APPLICATION WEB**
   
 ## AUTORISATION
-**Commit:** CHEF DE PROJET
+  ** Commit ** : SOLOFO, OUSSEMA, HABIB
