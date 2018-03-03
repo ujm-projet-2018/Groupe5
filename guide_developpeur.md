@@ -3,7 +3,7 @@
 
 ## Creation espace de travail:
 
-+ Cloner repository dans votre dossier en utilisant ce lien: https://github.com/Enjana-mavitrika/PROJET_TUT.git tapez en ligne de commande: `git clone https://github.com/Enjana-mavitrika/PROJET_TUT.git`
++ Cloner repository dans votre dossier en utilisant ce lien: https://github.com/ujm-projet-2018/Groupe5.git tapez en ligne de commande: `git clone https://github.com/Enjana-mavitrika/PROJET_TUT.git`
 
 
 + Creer les branches OBLIGATOIRE suivantes : 
