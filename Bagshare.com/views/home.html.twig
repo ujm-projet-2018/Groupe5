@@ -4,7 +4,7 @@
 
     {% if authenticated == true %}
     <div class="alert alert-success">
-        Vous êtes connecté, bienvenue {{ app.user.userfirstname }}.
+        Vous êtes connecté, bienvenue {{ app.user.nom }}.
     </div>
     {% endif %}
 
@@ -52,17 +52,20 @@
     <!-- les offres -->
 
     <h3>LES OFFRES RECENTS</h3>
+    
+    {% for offre in offre_array %}
+    
     <article class="offre container-fluid">
         <div class="row">
             <div class="col-md-offset-0 col-md-1 col-sm-offset-10 col-xs-offset-10 col-sm-2 col-xs-2"><img alt="icon logo" src="../img/icon-logo.png" height="50" width="50"></div>
             <div class="col-md-5 col-sm-12 col-xs-12">
                 <span class="offre-indication-ville">Départ : </span>
-                <strong class="offre-ville">PARIS, FRANCE</strong>
+                <strong class="offre-ville">{{offre.ville_depart}}</strong>
                 <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i><br/> Le 11 Septembre 2018 à 11h00</p>
             </div>
             <div class="col-md-5 col-sm-12 col-xs-12">
                 <span class="offre-indication-ville">Retour : </span>
-                <strong class="offre-ville">TANANARIVE, MADAGASCAR</strong>
+                <strong class="offre-ville">{{offre.ville_arrivee}}</strong>
                 <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i>
                     <br/>Le 12 Septembre 2018 à 13h15</p>
             </div>
@@ -70,144 +73,38 @@
         </div>
         <div class="row">
             <div class="col-md-offset-1 col-md-5 col-sm-12 col-xs-12">
-                <p class="prix-colis col-md-6 col-sm-6 col-xs-6">7 &euro; <br/>KG</p>
-                <p class="prix-enveloppe col-md-6 col-sm-6 col-xs-6">2 &euro; <br/>ENV</p>
+                <p class="prix-colis col-md-6 col-sm-6 col-xs-6">{{offre.prix_kg}} &euro; <br/>KG</p>
+                <p class="prix-enveloppe col-md-6 col-sm-6 col-xs-6">{{offre.prix_env}} &euro; <br/>ENV</p>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <p class="offre-quantite-dispo">Quantité disponible : </p>
-                <p class="offre-dispo-colis col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">10</strong><br/><strong class="offre-unite">kg</strong></p>
-                <p class="offre-dispo-lettre col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">15</strong> <br/><strong class="offre-unite">enveloppes</strong></p>
+                <p class="offre-dispo-colis col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">{{offre.nb_kg_dispo}}</strong><br/><strong class="offre-unite">kg</strong></p>
+                <p class="offre-dispo-lettre col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">{{offre.nb_env_dispo}}</strong> <br/><strong class="offre-unite">enveloppes</strong></p>
 
             </div>
 
             <div class="col-md-12  col-sm-6 col-xs-12">
-                <p class="offre-date-publication col-md-offset-1">Mise en ligne le 04/01/2018 par Username</p>
+                <p class="offre-date-publication col-md-offset-1">Mise en ligne le {{offre.date_ajout|date('d/m/Y')}} par {{offre.proprietaire.nom}} {{offre.proprietaire.prenom}}</p>
 
             </div>
         </div>
         <div class="col-md-5 col-md-offset-6">
             <p class="pull-right">
-                <a href="#" style="font-size: 2.0em; font-weight: bold;"> RESERVER <i class="fa fa-angle-double-right" aria-hidden="true"></i></i></a>
+                <a href="/detail_offer/?id={{offre.proprietaire.id}}" style="font-size: 2.0em; font-weight: bold;"> RESERVER <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
             </p>
         </div>
     </article>
-    <article class="offre container-fluid">
-        <div class="row">
-            <div class="col-md-offset-0 col-md-1 col-sm-offset-10 col-xs-offset-10 col-sm-2 col-xs-2"><img alt="icon logo" src="../img/icon-logo.png" height="50" width="50"></div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Départ : </span>
-                <strong class="offre-ville">PARIS, FRANCE</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i><br/> Le 11 Septembre 2018 à 11h00</p>
-            </div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Retour : </span>
-                <strong class="offre-ville">TANANARIVE, MADAGASCAR</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <br/>Le 12 Septembre 2018 à 13h15</p>
-            </div>
-
+    
+    {% else %}
+    
+    <div class="row">
+        <div class="alert alert-danger col-md-4 col-md-offset-4">
+            <strong>Pas d'offre disponible pour l'instant. </strong>
         </div>
-        <div class="row">
-            <div class="col-md-offset-1 col-md-5 col-sm-12 col-xs-12">
-                <p class="prix-colis col-md-6 col-sm-6 col-xs-6">7 &euro; <br/>KG</p>
-                <p class="prix-enveloppe col-md-6 col-sm-6 col-xs-6">2 &euro; <br/>ENV</p>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <p class="offre-quantite-dispo">Quantité disponible : </p>
-                <p class="offre-dispo-colis col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">10</strong><br/><strong class="offre-unite">kg</strong></p>
-                <p class="offre-dispo-lettre col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">15</strong> <br/><strong class="offre-unite">enveloppes</strong></p>
+    </div>
+    
+    {% endfor %}
 
-            </div>
-
-            <div class="col-md-12  col-sm-6 col-xs-12">
-                <p class="offre-date-publication col-md-offset-1">Mise en ligne le 04/01/2018 par Username</p>
-
-            </div>
-        </div>
-        <div class="col-md-5 col-md-offset-6">
-            <p class="pull-right">
-                <a href="#" style="font-size: 2.0em; font-weight: bold;"> RESERVER <i class="fa fa-angle-double-right" aria-hidden="true"></i></i></a>
-            </p>
-        </div>
-    </article>
-    <article class="offre container-fluid">
-        <div class="row">
-            <div class="col-md-offset-0 col-md-1 col-sm-offset-10 col-xs-offset-10 col-sm-2 col-xs-2"><img alt="icon logo" src="../img/icon-logo.png" height="50" width="50"></div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Départ : </span>
-                <strong class="offre-ville">PARIS, FRANCE</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i><br/> Le 11 Septembre 2018 à 11h00</p>
-            </div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Retour : </span>
-                <strong class="offre-ville">TANANARIVE, MADAGASCAR</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <br/>Le 12 Septembre 2018 à 13h15</p>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-offset-1 col-md-5 col-sm-12 col-xs-12">
-                <p class="prix-colis col-md-6 col-sm-6 col-xs-6">7 &euro; <br/>KG</p>
-                <p class="prix-enveloppe col-md-6 col-sm-6 col-xs-6">2 &euro; <br/>ENV</p>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <p class="offre-quantite-dispo">Quantité disponible : </p>
-                <p class="offre-dispo-colis col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">10</strong><br/><strong class="offre-unite">kg</strong></p>
-                <p class="offre-dispo-lettre col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">15</strong> <br/><strong class="offre-unite">enveloppes</strong></p>
-
-            </div>
-
-            <div class="col-md-12  col-sm-6 col-xs-12">
-                <p class="offre-date-publication col-md-offset-1">Mise en ligne le 04/01/2018 par Username</p>
-
-            </div>
-        </div>
-        <div class="col-md-5 col-md-offset-6">
-            <p class="pull-right">
-                <a href="#" style="font-size: 2.0em; font-weight: bold;"> RESERVER <i class="fa fa-angle-double-right" aria-hidden="true"></i></i></a>
-            </p>
-        </div>
-    </article>
-    <article class="offre container-fluid">
-        <div class="row">
-            <div class="col-md-offset-0 col-md-1 col-sm-offset-10 col-xs-offset-10 col-sm-2 col-xs-2"><img alt="icon logo" src="../img/icon-logo.png" height="50" width="50"></div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Départ : </span>
-                <strong class="offre-ville">PARIS, FRANCE</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i><br/> Le 11 Septembre 2018 à 11h00</p>
-            </div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <span class="offre-indication-ville">Retour : </span>
-                <strong class="offre-ville">TANANARIVE, MADAGASCAR</strong>
-                <p class="offre-dateTime"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <br/>Le 12 Septembre 2018 à 13h15</p>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-offset-1 col-md-5 col-sm-12 col-xs-12">
-                <p class="prix-colis col-md-6 col-sm-6 col-xs-6">7 &euro; <br/>KG</p>
-                <p class="prix-enveloppe col-md-6 col-sm-6 col-xs-6">2 &euro; <br/>ENV</p>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <p class="offre-quantite-dispo">Quantité disponible : </p>
-                <p class="offre-dispo-colis col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">10</strong><br/><strong class="offre-unite">kg</strong></p>
-                <p class="offre-dispo-lettre col-md-6 col-sm-6 col-xs-6"><strong class="offre-quantite">15</strong> <br/><strong class="offre-unite">enveloppes</strong></p>
-
-            </div>
-
-            <div class="col-md-12  col-sm-6 col-xs-12">
-                <p class="offre-date-publication col-md-offset-1">Mise en ligne le 04/01/2018 par Username</p>
-
-            </div>
-        </div>
-        <div class="col-md-5 col-md-offset-6">
-            <p class="pull-right">
-                <a href="#" style="font-size: 2.0em; font-weight: bold;"> RESERVER <i class="fa fa-angle-double-right" aria-hidden="true"></i></i></a>
-            </p>
-        </div>
-    </article>
 
     <!-- / les offres -->
 
