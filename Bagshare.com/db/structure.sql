@@ -63,6 +63,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ebagshare`.`T_OFFRE` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_user` INT NOT NULL,
+  `id_precision` INT NULL,
   `date_ajout` DATETIME NOT NULL,
   `date_modif` DATETIME NOT NULL,
   `nb_kg_dispo` INT NOT NULL,
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `ebagshare`.`T_OFFRE` (
   `prix_kg` INT NOT NULL,
   `prix_env` INT NOT NULL,
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_precision`) REFERENCES `ebagshare`.`T_PRECISION` (`id`),
   CONSTRAINT `useroffre`
     FOREIGN KEY (`id_user`)
     REFERENCES `ebagshare`.`T_USER` (`id`)
@@ -87,7 +89,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ebagshare`.`T_PRECISION` (
   `id` INT AUTO_INCREMENT, -- (solofo) rajout id => on aura plusieur precision pour une offre
-  `id_offre` INT NOT NULL,
   `numero_vol` VARCHAR(45) NOT NULL,
   `dimensionL` INT NOT NULL,
   `dimensionH` INT NOT NULL,
@@ -132,10 +133,12 @@ CREATE TABLE IF NOT EXISTS `ebagshare`.`T_RESERVER` (
   `id_avis_c` INT NOT NULL,
   `date_reservation` DATETIME NOT NULL,
   `est_confirme` CHAR(1) NULL DEFAULT 'N',
+  `id_article` INT NOT NULL,
   PRIMARY KEY (`id_offre`, `id_user`),
   INDEX `user_idx` (`id_user` ASC),
   INDEX `avic_v_idx` (`id_avis_v` ASC),
   INDEX `avic_c_idx` (`id_avis_c` ASC),
+  FOREIGN KEY (`id_article`) REFERENCES `ebagshare`.`T_ARTICLE` (`id`),
   CONSTRAINT `offreRes`
     FOREIGN KEY (`id_offre`)
     REFERENCES `ebagshare`.`T_OFFRE` (`id`)
@@ -174,7 +177,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ebagshare`.`T_ARTICLE` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_reservation` INT NOT NULL,
   `id_user` INT NOT NULL,
   `type` INT NOT NULL,
   `marque` VARCHAR(45) NOT NULL,

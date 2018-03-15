@@ -5,6 +5,7 @@ namespace Bagshare\Domain;
 
 use Symfony\Component\Validator\Constraints\DateTime;
 use Bagshare\Domain\User;
+use Bagshare\Domain\DateFormater;
 
 
 class Offer
@@ -24,7 +25,12 @@ class Offer
     private $date_arrivee;
     private $prix_kg = 0.0;
     private $prix_env = 0.0;
-    
+    /**
+	 * 
+	 * @var Precision
+	 * @access private
+	 */
+	private  $precision;
     /**
     * constructor
     */
@@ -50,16 +56,25 @@ class Offer
     */
     public function getId(){return $this->id;}
     public function getProprietaire(){return $this->proprietaire;}
-    public function getDate_ajout(){return $this->date_ajout;}
-    public function getDate_modif(){return $this->date_modif;}
+    public function getDate_ajout(){
+        return DateFormater::formaterDate($this->date_ajout);
+    }
+    public function getDate_modif(){
+        return DateFormater::formaterDate($this->date_modif);
+    }
     public function getNb_kg_dispo(){return $this->nb_kg_dispo;}
     public function getNb_env_dispo(){return $this->nb_env_dispo;}
     public function getVille_depart(){return $this->ville_depart;}
     public function getVille_arrivee(){return $this->ville_arrivee;}
-    public function getDate_depart(){return $this->date_depart;}
-    public function getDate_arrivee(){return $this->date_arrivee;}
+    public function getDate_depart(){
+        return DateFormater::formaterDate($this->date_depart);
+    }
+    public function getDate_arrivee(){
+        return DateFormater::formaterDate($this->date_arrivee);
+    }
     public function getPrix_kg(){return $this->prix_kg;}
     public function getPrix_env(){return $this->prix_env;}
+    public function getPrecision(){return $this->precision;}
     
     /**
     * setters
@@ -73,11 +88,11 @@ class Offer
         return null != $this->proprietaire;
     }
     public function setDate_ajout($date){
-        $this->date_ajout = strtotime($date);
+        $this->date_ajout = DateFormater::setDate($date);
         return null != $this->date_ajout;
     }
     public function setDate_modif($date){
-        $this->date_modif = strtotime($date);
+        $this->date_modif = DateFormater::setDate($date);
         return null != $this->date_modif;
     }
     public function setNb_kg_dispo($kg){
@@ -97,11 +112,11 @@ class Offer
         return null != $this->ville_arrivee;
     }
     public function setDate_depart($date){
-        $this->date_depart = strtotime($date);
+        $this->date_depart = DateFormater::setDate($date);
         return null != $this->date_depart;
     }
     public function setDate_arrivee($date){
-        $this->date_arrivee = strtotime($date);
+        $this->date_arrivee = DateFormater::setDate($date);
         return null != $this->date_arrivee;
     }
     public function setPrix_kg($prix){
@@ -112,4 +127,10 @@ class Offer
         $this->prix_env = (float)$prix;
         return null != $this->prix_env;
     }
+    public function setPrecision(Precision $precision){
+        $this->precision = $precision;
+        return null != $this->precision;
+    }
+    
+    
 }

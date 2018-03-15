@@ -20,6 +20,19 @@ class User implements UserInterface
     private $role = " ";
     private $identite = " ";
     private $identite_confirme = false;
+    /**
+	 * 
+	 * @var Profil
+	 * @access private
+	 */
+	private  $profil;
+
+	/**
+	 * 
+	 * @var String
+	 * @access private
+	 */
+	private  $photo;
     
     
     private $errors = array();
@@ -50,13 +63,13 @@ class User implements UserInterface
         return $this->id;
     }
     public function getNom(){
-        return $this->nom;
+        return $this->formaterNom($this->nom);
     }
     public function getUsername(){
         return $this->nom;
     }
     public function getPrenom(){
-        return $this->prenom;
+        return $this->formaterNom($this->prenom);
     }
     public function getTel(){
         return $this->tel;
@@ -80,6 +93,9 @@ class User implements UserInterface
     
     public function getErrors(){
         return $this->errors;
+    }
+    public function getProfil(){
+        return $this->profil;
     }
     
     /**
@@ -133,6 +149,13 @@ class User implements UserInterface
     public function setRole($role){
         $this->role = $role;
     }
+    public function  setProfil(Profil $profil){
+        $this->profil = $profil;
+        return $this->profil !== null;
+    }
+    
+    
+    // public methods 
     
     public function signIn(array $post, $password_name, $role){
         $this->hydrate($post);
@@ -157,4 +180,12 @@ class User implements UserInterface
     public function eraseCredentials(){
         //Nothing to do here
     }
+    
+    
+    // private methods
+    private function formaterNom($nom){
+        $nomFormat = strtolower($nom);
+        return ucfirst($nomFormat);
+    }
+    
 }

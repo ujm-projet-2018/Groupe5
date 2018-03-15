@@ -1,0 +1,3 @@
+From:	/var/www/Bagshare.com/bagshareUML.dia
+With:	/usr/share/dia/xslt/dia-uml2php5.zx
+To:	directory='file:///var/www/Bagshare.com/'
