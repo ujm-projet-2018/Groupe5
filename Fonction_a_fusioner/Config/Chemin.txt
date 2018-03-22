@@ -1,0 +1,14 @@
+Etape 1) 
+
+C:\wamp64\bin\apache\apache2.4.27\bin
+
+Fichier --> php.ini
+
+mettre tous en commentaire comme la capture etape1.png à part le 
+sendmail_path ="C:\wamp64\sendmail\sendmail.exe"
+
+Etape 2)
+
+copier dossier sendmail dans \wamp64
+
+// email d'envoie et mot de passe  ebagshare@gmail.com dans fichier sendmail.php 
